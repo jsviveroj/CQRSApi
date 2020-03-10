@@ -1,0 +1,1 @@
+#  .Net Core API using Clean Architecture and CQRS.
