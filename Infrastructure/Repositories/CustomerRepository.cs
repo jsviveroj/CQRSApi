@@ -1,12 +1,11 @@
-﻿using Domain.Entities;
-using Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities;
+using Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Infrastructure.Repositories
 {
@@ -29,7 +28,6 @@ namespace Infrastructure.Repositories
             if (_context.SaveChanges() == 0)
                 throw new Exception("SQL exception, couldn't save customer");
             
-
             return createdCustomer.Entity;
         }
     }
