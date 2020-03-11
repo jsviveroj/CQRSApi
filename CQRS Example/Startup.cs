@@ -4,9 +4,11 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using AutoMapper;
+using CQRS_Example.Config.ActionFilters;
 using Infrastructure;
 using Infrastructure.Handlers;
 using MediatR;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using FluentValidation.AspNetCore;
 
 namespace CQRS_Example
 {
@@ -31,14 +34,21 @@ namespace CQRS_Example
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddMvc(opt =>
+                opt.Filters.Add(typeof(ValidatorActionFilter))
+            ).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+
             services.AddMediatR(typeof(Startup));
 
             services.AddCors(options => options.AddPolicy(MyPolicyCors,
                 builder => builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CQRS API", Version = "v1" });
             });
+
             services.AddDbContext<CQRSContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
         }
