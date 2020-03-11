@@ -21,5 +21,16 @@ namespace Infrastructure.Repositories
 
         public async Task<Customer> GetAsync(Expression<Func<Customer, bool>> predicate)
             => await _context.Customer.Where(predicate).FirstOrDefaultAsync();
+
+        public async Task<Customer> PostAsync(Customer customer)
+        {
+            var createdCustomer = await _context.Customer.AddAsync(customer);
+
+            if (_context.SaveChanges() == 0)
+                throw new Exception("SQL exception, couldn't save customer");
+            
+
+            return createdCustomer.Entity;
+        }
     }
 }

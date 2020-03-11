@@ -1,4 +1,5 @@
 ﻿using CQRS_Example.Config;
+using Domain.Commands;
 using Domain.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,11 @@ namespace CQRS_Example.Controllers
         {
             var query = new GetCustomerQuery(customerId);
             return Ok(await QueryAsync(query));
-        } 
-        
+        }
+
+
+        [HttpPost("CreateCustomer")]
+        public async Task<ActionResult> CreateCustomer([FromBody] AddCustomerCommand command)
+            => Ok(await CommandAsync(command));
     }
 }

@@ -17,9 +17,7 @@ namespace CQRS_Example.Config
         }
 
         protected async Task<TResult> QueryAsync<TResult>(IRequest<TResult> query)
-        {
-            return await _mediator.Send(query);
-        }
+            => await _mediator.Send(query);
 
         protected ActionResult<T> Single<T>(T data)
         {
@@ -28,8 +26,7 @@ namespace CQRS_Example.Config
         }
 
         protected async Task<TResult> CommandAsync<TResult>(IRequest<TResult> command)
-        {
-            return await _mediator.Send(command);
-        }
+            => await _mediator.Send(command);
+        
     }
 }

@@ -8,5 +8,6 @@ namespace Domain.Repositories
     public interface ICustomerRepository
     {
         Task<Customer> GetAsync(Expression<Func<Customer, bool>> predicate);
+        Task<Customer> PostAsync(Customer customer);
     }
 }
