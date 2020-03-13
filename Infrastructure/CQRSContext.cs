@@ -37,7 +37,7 @@ namespace Infrastructure
             {
                 IConfigurationRoot configuration = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile(Directory.GetCurrentDirectory() + "/../CQRS Example\appsettings.json")
+                    .AddJsonFile(Directory.GetCurrentDirectory() + "/../CQRS Example/appsettings.json")
                     .Build();
                 var builder = new DbContextOptionsBuilder<CQRSContext>();
                 var connectionString = configuration.GetConnectionString("DefaultConnection");
