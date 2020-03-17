@@ -9,5 +9,6 @@ namespace Domain.Repositories
     {
         Task<Customer> GetAsync(Expression<Func<Customer, bool>> predicate);
         Task<Customer> PostAsync(Customer customer);
+        Task<bool> DeleteAsync(Customer customer);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Infrastructure.Mappings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -27,8 +26,7 @@ namespace Infrastructure
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new OrderEntityTypeConfiguration());
-            builder.ApplyConfiguration(new CustomerEntityTypeConfiguration());
+            builder.ApplyConfigurationsFromAssembly(typeof(CQRSContext).Assembly);
         }
 
         public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<CQRSContext>

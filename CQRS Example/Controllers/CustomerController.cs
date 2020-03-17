@@ -21,9 +21,12 @@ namespace CQRS_Example.Controllers
             return Ok(await QueryAsync(query));
         }
 
-
         [HttpPost("CreateCustomer")]
         public async Task<ActionResult<CustomerDTO>> CreateCustomer([FromBody] AddCustomerCommand command)
+            => Ok(await CommandAsync(command));
+
+        [HttpDelete("DeleteCustomer")]
+        public async Task<ActionResult<bool>> DeleteCustomer([FromQuery] DeleteCustomerCommand command)
             => Ok(await CommandAsync(command));
     }
 }

@@ -30,5 +30,15 @@ namespace Infrastructure.Repositories
             
             return createdCustomer.Entity;
         }
+
+        public async Task<bool> DeleteAsync(Customer customer)
+        {
+            _context.Remove(customer);
+
+            if ( await _context.SaveChangesAsync() == 0)
+                throw new Exception("SQL exception, couldn't delete customer");
+
+            return true;
+        }
     }
 }
